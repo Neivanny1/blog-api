@@ -42,19 +42,29 @@ def delete():
 
 @api.post('/addpost')
 def addpost():
-    title = request.form['title']
-    subtitle = request.form['subtitle']
-    author = request.form['author']
-    content = request.form['content']
+    data = request.json
+    title = data.get('title')
+    subtitle = data.get('subtitle')
+    author = data.get('author')
+    content = data.get('content')
+
+    if title is None or subtitle is None or author is None or content is None:
+        return jsonify({"error": "Missing required fields"}), 400
+
     post = Blogpost(title=title, subtitle=subtitle, author=author, content=content, date_posted=datetime.now())
     db.session.add(post)
     db.session.commit()
     post_id = post.id
+
     sts = {
         "status": "SUCCESS",
         "Code": 201,
         "Message": "Post added successfully",
-        "post_id": post_id
+        "post_id": post_id,
+        "title": title,
+        "subtitle": subtitle,
+        "author": author,
+        "content": content
     }
     return jsonify(sts), 201
 
