@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy 
 from datetime import datetime
-
+import os
+from dotenv import load_dotenv
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://ikxxowhz:e5SDqTuTbxwubAXyApjMzhSV6S7tkiGF@bubble.db.elephantsql.com/ikxxowhz'

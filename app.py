@@ -1,20 +1,16 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy 
 from datetime import datetime
+from models import db, Blogpost
+import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DBURL')
+db.init_app(app)
+from flask_migrate import Migrate
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://ikxxowhz:e5SDqTuTbxwubAXyApjMzhSV6S7tkiGF@bubble.db.elephantsql.com/ikxxowhz'
-
-db = SQLAlchemy(app)
-
-class Blogpost(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50))
-    subtitle = db.Column(db.String(50))
-    author = db.Column(db.String(20))
-    date_posted = db.Column(db.DateTime)
-    content = db.Column(db.Text)
+migrate = Migrate(app, db)
 
 @app.route('/')
 def index():
@@ -65,4 +61,5 @@ def deletepost():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
+    db.create_all()
     app.run(debug=True)

@@ -24,3 +24,9 @@ RESTful webservice created using Python Flask and SQLite for a Blogging website.
 
 https://www.tutorialspoint.com/flask/index.htm
 https://flask-restful.readthedocs.io/en/latest/
+
+
+flask db init
+flask db migrate -m "description of migration"
+flask db upgrade
+flask run
