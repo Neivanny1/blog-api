@@ -1,8 +1,7 @@
 Flask
 Flask-SQLAlchemy
-psycopg2
 Flask-Migrate
 Pillow
 python-dotenv
-psycopg2
+psycopg2-binary
 setuptools
