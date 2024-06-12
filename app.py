@@ -4,7 +4,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://ikxxowhz:e5SDqTuTbxwubAXyApjMzhSV6S7tkiGF@bubble.db.elephantsql.com/ikxxowhz'
 
 db = SQLAlchemy(app)
 
