@@ -1,0 +1,13 @@
+available endponts
+
+/addplog
+/updateblog
+/deleteblog
+/getblog
+/addplog and updateblog
+{
+    "title": "Flasks",
+    "subtitle":  "Flask API",
+    "author" : "Eric",
+    "content" : "Alway enable cors"
+}

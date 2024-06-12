@@ -9,4 +9,6 @@ class Blogpost(db.Model):
     subtitle = db.Column(db.String(50))
     author = db.Column(db.String(20))
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
+    date_edited = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
+    edited_by = db.Column(db.String(20), nullable=True)
     content = db.Column(db.Text)
