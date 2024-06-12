@@ -1,69 +1,77 @@
-from flask import Flask, render_template, request, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy 
+from flask import Blueprint, request, jsonify, render_template, redirect, url_for
 from datetime import datetime
-import os
-from dotenv import load_dotenv
-app = Flask(__name__)
+from models import db, Blogpost
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://ikxxowhz:e5SDqTuTbxwubAXyApjMzhSV6S7tkiGF@bubble.db.elephantsql.com/ikxxowhz'
 
-db = SQLAlchemy(app)
+api = Blueprint('api', __name__)
 
-class Blogpost(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50))
-    subtitle = db.Column(db.String(50))
-    author = db.Column(db.String(20))
-    date_posted = db.Column(db.DateTime)
-    content = db.Column(db.Text)
-
-@app.route('/')
+@api.get('/index')
 def index():
     posts = Blogpost.query.order_by(Blogpost.date_posted.desc()).all()
-    return render_template('index.html', posts=posts)
+    serialized_posts = [{
+        'id': post.id,
+        'title': post.title,
+        'subtitle': post.subtitle,
+        'author': post.author,
+        'date_posted': post.date_posted.isoformat(),
+        'content': post.content
+    } for post in posts]
+    return jsonify(serialized_posts)
 
-@app.route('/about')
+@api.get('/about')
 def about():
     return render_template('about.html')
 
-@app.route('/post/<int:post_id>')
+@api.get('/post/<int:post_id>')
 def post(post_id):
     post = Blogpost.query.filter_by(id=post_id).one()
-    return render_template('post.html', post=post)
+    serialized_post = {
+        'id': post.id,
+        'title': post.title,
+        'subtitle': post.subtitle,
+        'author': post.author,
+        'date_posted': post.date_posted.isoformat(),
+        'content': post.content
+    }
+    return jsonify(serialized_post)
 
-@app.route('/add')
-def add():
-    return render_template('add.html')
-
-@app.route('/delete')
+@api.route('/delete')
 def delete():
     posts = Blogpost.query.order_by(Blogpost.date_posted.desc()).all()
     return render_template('delete.html', posts=posts)
 
-@app.route('/addpost', methods=['POST'])
+@api.post('/addpost')
 def addpost():
     title = request.form['title']
     subtitle = request.form['subtitle']
     author = request.form['author']
     content = request.form['content']
-
     post = Blogpost(title=title, subtitle=subtitle, author=author, content=content, date_posted=datetime.now())
-
     db.session.add(post)
     db.session.commit()
+    post_id = post.id
+    sts = {
+        "status": "SUCCESS",
+        "Code": 201,
+        "Message": "Post added successfully",
+        "post_id": post_id
+    }
+    return jsonify(sts), 201
 
-    return redirect(url_for('index'))
-
-@app.route('/deletepost', methods=['DELETE','POST'])
-def deletepost():
-    post_id = request.form.get("post_id")
-
-    post = Blogpost.query.filter_by(id=post_id).first()
-
-    db.session.delete(post)
-    db.session.commit()
-    
-    return redirect(url_for('index'))
-
-if __name__ == '__main__':
-    app.run(debug=True)
+@api.delete('/deletepost/<int:post_id>')
+def deletepost(post_id):
+    post = Blogpost.query.get(post_id)
+    if post:
+        db.session.delete(post)
+        db.session.commit()
+        return jsonify({
+            "status": "SUCCESS",
+            "Code": 204,
+            "Message": "Post deleted successfully"
+        }), 204
+    else:
+        return jsonify({
+            "status": "ERROR",
+            "Code": 404,
+            "Message": "Post not found"
+        }), 404
