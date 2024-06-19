@@ -2,6 +2,14 @@
 
 RESTful webservice created using Python Flask and SQLite for a Blogging website.
 
+## Setting up postgres db
+CREATE DATABASE mydatabase;
+CREATE USER myuser WITH PASSWORD 'mypassword';
+GRANT ALL PRIVILEGES ON DATABASE mydatabase TO myuser;
+## Setting up mysql db
+
+## ## Setting up Mongo db
+
 ### Installation Requirements (libraries)
 
   1. ```pip install Flask```

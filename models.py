@@ -12,3 +12,5 @@ class Blogpost(db.Model):
     date_edited = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
     edited_by = db.Column(db.String(20), nullable=True)
     content = db.Column(db.Text)
+    def __repr__(self):
+        return f'<Blogpost {self.id}>'

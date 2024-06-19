@@ -3,18 +3,21 @@ from datetime import datetime
 from models import db, Blogpost
 import os
 from dotenv import load_dotenv
-from flask_migrate import Migrate
 from api import api
 from flask_cors import CORS
+
 load_dotenv()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.register_blueprint(api, url_prefix="/v1")
 CORS(app)
 db.init_app(app)
 
-migrate = Migrate(app, db)
+with app.app_context():
+    db.create_all()
+
 
 @app.route('/')
 def index():
