@@ -3,9 +3,9 @@
 RESTful webservice created using Python Flask and SQLite for a Blogging website.
 
 ## Setting up postgres db
-CREATE DATABASE mydatabase;
-CREATE USER myuser WITH PASSWORD 'mypassword';
-GRANT ALL PRIVILEGES ON DATABASE mydatabase TO myuser;
+CREATE DATABASE mydatabase; <br>
+CREATE USER myuser WITH PASSWORD 'mypassword'; <br>
+GRANT ALL PRIVILEGES ON DATABASE mydatabase TO myuser; <br>
 ## Setting up mysql db
 GRANT ALL PRIVILEGES ON DATABASE blog_api TO dev;
 ## ## Setting up Mongo db
