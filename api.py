@@ -6,6 +6,7 @@ from flask_jwt_extended import JWTManager, jwt_required, create_access_token, ge
 api = Blueprint('api', __name__)
 jwt = JWTManager()
 
+
 # Configure JWT
 @api.record_once
 def record(state):
