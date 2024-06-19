@@ -1,0 +1,35 @@
+put:
+  summary: "Updates an existing blog post by ID."
+  description: "Updates an existing blog post by ID with title, subtitle, author, and content."
+  consumes:
+    - application/json
+  produces:
+    - application/json
+  parameters:
+    - in: "path"
+      name: "post_id"
+      type: integer
+      required: true
+      description: "ID of the blog post to update."
+    - in: "body"
+      name: "body"
+      description: "Blog post object to be updated."
+      required: true
+      schema:
+        type: object
+        properties:
+          title:
+            type: string
+          subtitle:
+            type: string
+          author:
+            type: string
+          content:
+            type: string
+  responses:
+    200:
+      description: "Blog post updated successfully."
+    400:
+      description: "Missing required fields."
+    404:
+      description: "Blog post not found."

@@ -1,0 +1,32 @@
+get:
+  summary: "Retrieves a specific blog post by ID."
+  description: "Retrieves a specific blog post by ID."
+  produces:
+    - application/json
+  parameters:
+    - in: "path"
+      name: "blog_id"
+      type: integer
+      required: true
+      description: "ID of the blog post to retrieve."
+  responses:
+    200:
+      description: "A blog post."
+      schema:
+        type: object
+        properties:
+          id:
+            type: integer
+          title:
+            type: string
+          subtitle:
+            type: string
+          author:
+            type: string
+          date_posted:
+            type: string
+            format: date-time
+          content:
+            type: string
+    404:
+      description: "Blog post not found."

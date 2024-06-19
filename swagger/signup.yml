@@ -1,0 +1,28 @@
+post:
+  summary: "Registers a new user."
+  description: "Registers a new user with a username, email, and password."
+  consumes:
+    - application/json
+  produces:
+    - application/json
+  parameters:
+    - in: "body"
+      name: "body"
+      description: "User object to be registered."
+      required: true
+      schema:
+        type: object
+        properties:
+          username:
+            type: string
+          email:
+            type: string
+          password:
+            type: string
+  responses:
+    201:
+      description: "User created successfully."
+    400:
+      description: "Missing username, email, or password."
+    409:
+      description: "Username or email already exists."

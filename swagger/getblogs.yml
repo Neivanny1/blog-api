@@ -1,0 +1,26 @@
+get:
+  summary: "Retrieves all blog posts."
+  description: "Retrieves all blog posts ordered by date posted."
+  produces:
+    - application/json
+  responses:
+    200:
+      description: "A list of blog posts."
+      schema:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: integer
+            title:
+              type: string
+            subtitle:
+              type: string
+            author:
+              type: string
+            date_posted:
+              type: string
+              format: date-time
+            content:
+              type: string

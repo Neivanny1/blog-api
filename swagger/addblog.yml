@@ -1,0 +1,28 @@
+post:
+  summary: "Adds a new blog post."
+  description: "Adds a new blog post with title, subtitle, author, and content."
+  consumes:
+    - application/json
+  produces:
+    - application/json
+  parameters:
+    - in: "body"
+      name: "body"
+      description: "Blog post object to be added."
+      required: true
+      schema:
+        type: object
+        properties:
+          title:
+            type: string
+          subtitle:
+            type: string
+          author:
+            type: string
+          content:
+            type: string
+  responses:
+    201:
+      description: "Blog post added successfully."
+    400:
+      description: "Missing required fields."

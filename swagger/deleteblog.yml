@@ -1,0 +1,16 @@
+delete:
+  summary: "Deletes a blog post by ID."
+  description: "Deletes a blog post by ID."
+  produces:
+    - application/json
+  parameters:
+    - in: "path"
+      name: "post_id"
+      type: integer
+      required: true
+      description: "ID of the blog post to delete."
+  responses:
+    204:
+      description: "Blog post deleted successfully."
+    404:
+      description: "Blog post not found."
