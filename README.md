@@ -7,7 +7,7 @@ CREATE DATABASE mydatabase;
 CREATE USER myuser WITH PASSWORD 'mypassword';
 GRANT ALL PRIVILEGES ON DATABASE mydatabase TO myuser;
 ## Setting up mysql db
-
+GRANT ALL PRIVILEGES ON DATABASE blog_api TO dev;
 ## ## Setting up Mongo db
 
 ### Installation Requirements (libraries)

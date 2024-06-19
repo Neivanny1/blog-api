@@ -5,9 +5,21 @@ available endponts
 /deleteblog
 /getblog
 /addplog and updateblog
+add bearer token in auth
 {
     "title": "Flasks",
     "subtitle":  "Flask API",
     "author" : "Eric",
     "content" : "Alway enable cors"
+}
+/signup 
+{
+    "username": "newuser",
+    "email": "newuser@example.com",
+    "password": "password123"
+}
+/login
+{
+    "username": "newuser",
+    "password": "password123"
 }
